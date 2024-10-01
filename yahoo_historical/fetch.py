@@ -13,12 +13,14 @@ def conv_df(resp):
     # Extract the data explicitly by field name
     timestamps = j['chart']['result'][0]['timestamp']
     indicators = j['chart']['result'][0]['indicators']['quote'][0]
+    adj = j['chart']['result'][0]['indicators']['adjclose'][0]
     
     # Explicitly extract each field by its key to avoid any mismatch
     close = indicators.get('close', [])
     open_ = indicators.get('open', [])
     high = indicators.get('high', [])
     low = indicators.get('low', [])
+    adjclose = adj.get('adjclose', [])
     volume = indicators.get('volume', [])
 
     # Create the DataFrame with the correct order of columns
@@ -28,6 +30,7 @@ def conv_df(resp):
         'High': high,
         'Low': low,
         'Close': close,
+        'Adj Close': adjclose,
         'Volume': volume
     })
     
